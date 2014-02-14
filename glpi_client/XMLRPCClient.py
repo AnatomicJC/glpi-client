@@ -23,6 +23,10 @@ class XMLRPCClient(object):
     Python client to interact with GLPI webservices plugin
     """
     def __init__(self, baseurl="http://localhost/glpi"):
+        """
+        @param baseurl: Base URL of your GLPI instance
+        @type baseurl: str
+        """
         self.baseurl = baseurl
         self.serviceurl = self.baseurl + '/plugins/webservices/xmlrpc.php'
         self.session = None
@@ -30,6 +34,17 @@ class XMLRPCClient(object):
         self.logger = logging.getLogger()
 
     def connect(self, login_name=None, login_password=None):
+        """
+        Connect to a running GLPI instance with webservices
+        plugin enabled.
+
+        Returns True if connection was successful.
+
+        @param login_name: your GLPI username
+        @type login_name: string
+        @param login_password: your GLPI password
+        @type login_password: string
+        """
         if not None in [login_name, login_password]:
             params = {
                 'login_name':login_name,
@@ -46,7 +61,25 @@ class XMLRPCClient(object):
         return True
 
     def __getattr__(self, attr):
-        def call(module='glpi', *args, **kwargs):
+        def _get_doc(attr, _help):
+            """
+            Format docstring for wrapped method
+            """
+            ret = "Wrapper for GLPI webservices %s method:\n\n" % attr
+            ret += "It could be a good idea to see method's reference page:\n"
+            ret += "https://forge.indepnet.net/projects/webservices/wiki/Glpi%s\n\n" % attr
+            ret += "@param module: webservices module to call (default: glpi)\n"
+            ret += "@type module: str\n"
+            ret += "@param kwargs: options for %s method:\n\n" % attr
+
+            for (key, value) in _help.items():
+                ret += '\t- %s: %s\n' % (key, value)
+
+            ret += "\n@type kwargs: dict"
+
+            return ret
+
+        def call(module='glpi', **kwargs):
             params = {}
             if self.session:
                 params['session'] = self.session
@@ -57,5 +90,5 @@ class XMLRPCClient(object):
             return getattr(called_module, attr)(params)
 
         call.__name__ = attr
-        call.__doc__ = call(help=True)
+        call.__doc__ = _get_doc(attr, call(help=True))
         return call

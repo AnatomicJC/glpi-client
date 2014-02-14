@@ -25,6 +25,10 @@ class RESTClient(object):
     Python client to interact with GLPI webservices plugin
     """
     def __init__(self, baseurl="http://localhost/glpi"):
+        """
+        @param baseurl: Base URL of your GLPI instance
+        @type baseurl: str
+        """
         self.baseurl = baseurl
         self.resturl = self.baseurl + '/plugins/webservices/rest.php?'
         self.session = None
@@ -60,7 +64,31 @@ class RESTClient(object):
         return True
 
     def __getattr__(self, attr):
+        def _get_doc(attr, _help):
+            """
+            Format docstring for wrapped method
+            """
+            ret = "Wrapper for GLPI webservices %s method:\n\n" % attr
+            ret += "It could be a good idea to see method's reference page:\n"
+            ret += "https://forge.indepnet.net/projects/webservices/wiki/Glpi%s\n\n" % attr
+            ret += "@param module: webservices module to call (default: glpi)\n"
+            ret += "@type module: str\n"
+            ret += "@param kwargs: options for %s method:\n\n" % attr
+
+            for (key, value) in _help.items():
+                ret += '\t- %s: %s\n' % (key, value)
+
+            ret += "\n@type kwargs: dict"
+
+            return ret
+
         def treatFields(params):
+            """
+            Format fields for REST API
+
+            With REST API, fields must be formatted.
+            Used for methods such as deleteObjects and updateObjects
+            """
             fields = params.pop('fields', [])
             if attr == 'deleteObjects':
                 for glpi_type in fields:
@@ -88,5 +116,5 @@ class RESTClient(object):
             return json.loads(response.read())
 
         call.__name__ = attr
-        call.__doc__ = call(help=True)
+        call.__doc__ = _get_doc(attr, call(help=True))
         return call
