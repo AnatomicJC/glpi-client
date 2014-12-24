@@ -20,7 +20,7 @@ From this glpi object, you can call all GLPI webservices methods listed on this 
 
 For each webservices method, you can use python help() method
 
-#### Example: ####
+#### Examples: ####
 
 **glpi.getObject** method (https://forge.indepnet.net/projects/webservices/wiki/GlpigetObject):
 
@@ -89,3 +89,33 @@ On my GLPI install, it provides this result:
     'users_id': '0',
     'users_id_tech': '0',
     'uuid': '10F82C81-5267-11CB-863F-DC00B89EBF52'}
+
+**glpi.updateObjects** method (https://forge.indepnet.net/projects/webservices/wiki/GlpiupdateObjects):
+
+    help(glpi.updateObjects)
+    
+Will give you this output:
+
+    Help on function updateObjects in module glpi_client.XMLRPCClient:
+    updateObjects(module='glpi', **kwargs)
+    Wrapper for GLPI webservices updateObjects method:
+    It could be a good idea to see method's reference page:
+    https://forge.indepnet.net/projects/webservices/wiki/GlpiupdateObjects
+    @param module: webservices module to call (default: glpi)
+    @type module: str
+    @param kwargs: options for updateObjects method:
+        - fields: array, mandatory
+        - help: bool, optional
+    @type kwargs: dict
+
+Then, use it !
+
+    update_info = {
+        'Computer': [
+            {
+                'id':'6793',
+                'states_id' : '16'
+            }
+        ]
+    }
+    result = glpi.updateObjects(fields=update_info)
