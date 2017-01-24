@@ -70,7 +70,7 @@ class RESTClient(object):
             """
             ret = "Wrapper for GLPI webservices %s method:\n\n" % attr
             ret += "It could be a good idea to see method's reference page:\n"
-            ret += "https://forge.indepnet.net/projects/webservices/wiki/Glpi%s\n\n" % attr
+            ret += "https://forge.glpi-project.org/projects/webservices/wiki/Glpi%s\n\n" % attr
             ret += "@param module: webservices module to call (default: glpi)\n"
             ret += "@type module: str\n"
             ret += "@param kwargs: options for %s method:\n\n" % attr

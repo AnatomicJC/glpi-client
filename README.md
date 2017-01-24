@@ -16,13 +16,13 @@ glpi-client provides 2 clients to interact with GLPI webservices plugin:
     glpi = XMLRPCClient('http://localhost/glpi')
     glpi.connect('login', 'password')
 
-From this glpi object, you can call all GLPI webservices methods listed on this page: https://forge.indepnet.net/projects/webservices/wiki/En_devguide
+From this glpi object, you can call all GLPI webservices methods listed on this page: https://forge.glpi-project.org/projects/webservices/wiki/En_devguide
 
 For each webservices method, you can use python help() method
 
 #### Examples: ####
 
-**glpi.getObject** method (https://forge.indepnet.net/projects/webservices/wiki/GlpigetObject):
+**glpi.getObject** method (https://forge.glpi-project.org/projects/webservices/wiki/GlpigetObject):
 
     help(glpi.getObject)
     
@@ -32,7 +32,7 @@ Will give you this output:
     getObject(module='glpi', **kwargs)
     Wrapper for GLPI webservices getObject method:
         It could be a good idea to see method's reference page:
-        https://forge.indepnet.net/projects/webservices/wiki/GlpigetObject
+        https://forge.glpi-project.org/projects/webservices/wiki/GlpigetObject
     @param module: webservices module to call (default: glpi)
     @type module: str
     @param kwargs: options for getObject method:
@@ -90,7 +90,7 @@ On my GLPI install, it provides this result:
     'users_id_tech': '0',
     'uuid': '10F82C81-5267-11CB-863F-DC00B89EBF52'}
 
-**glpi.updateObjects** method (https://forge.indepnet.net/projects/webservices/wiki/GlpiupdateObjects):
+**glpi.updateObjects** method (https://forge.glpi-project.org/projects/webservices/wiki/GlpiupdateObjects):
 
     help(glpi.updateObjects)
     
@@ -100,7 +100,7 @@ Will give you this output:
     updateObjects(module='glpi', **kwargs)
     Wrapper for GLPI webservices updateObjects method:
     It could be a good idea to see method's reference page:
-    https://forge.indepnet.net/projects/webservices/wiki/GlpiupdateObjects
+    https://forge.glpi-project.org/projects/webservices/wiki/GlpiupdateObjects
     @param module: webservices module to call (default: glpi)
     @type module: str
     @param kwargs: options for updateObjects method:
